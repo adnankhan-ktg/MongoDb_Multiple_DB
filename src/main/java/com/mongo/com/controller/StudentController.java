@@ -23,12 +23,12 @@ public class StudentController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public User addNewUsers(@RequestBody User user) {
 
+
 		return userRepository.save(user);
 	}	
 	
 	@RequestMapping(value = "/create/student", method = RequestMethod.POST)
 	public Student addNewStudent(@RequestBody Student user) {
-
 		return studentRepository.save(user);
 	}	
 }
