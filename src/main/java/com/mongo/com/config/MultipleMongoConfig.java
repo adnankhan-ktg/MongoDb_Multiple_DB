@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @Configuration
 public class MultipleMongoConfig {
@@ -43,4 +44,20 @@ public class MultipleMongoConfig {
 	public SimpleMongoClientDatabaseFactory secondaryFactory() throws Exception {
 		return new SimpleMongoClientDatabaseFactory(secondaryDbUri+"/"+secondaryDbName);
 	}
+}
+
+@Configuration
+@EnableMongoRepositories(
+		basePackages = "com.mongo.com.repository.primary",
+		mongoTemplateRef = "primaryMongoTemplate"
+)
+class PrimaryMongoConfig {
+}
+
+@Configuration
+@EnableMongoRepositories(
+		basePackages = "com.mongo.com.repository.secondary",
+		mongoTemplateRef = "secondaryMongoTemplate"
+)
+class SecondaryMongoConfig {
 }
